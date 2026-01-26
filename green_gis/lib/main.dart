@@ -3,6 +3,7 @@ import 'package:green_gis/Pages/RegisterPage.dart';
 import 'package:green_gis/Services/LoginUserNavigation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'Pages/LoginPage.dart';
+import 'Pages/InformationPage.dart';
 
 
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginUserNavigation(),
+      home: InformationPage(),
     );
   }
 }

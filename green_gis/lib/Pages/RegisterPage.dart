@@ -98,6 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   text: 'Email',
                   controller: emailTextController,
                   hideText: false,
+                  icon: Icons.email,
                 ),
 
                 const SizedBox(height: 16),
@@ -106,6 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   text: 'Password',
                   controller: passwordTextController,
                   hideText: true,
+                  icon: Icons.lock,
                 ),
 
                 const SizedBox(height: 12),
@@ -114,6 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   text: 'Confirm Password',
                   controller: confirmPasswordTextController,
                   hideText: true,
+                  icon: Icons.lock,
                 ),
 
                 const SizedBox(height: 8),
@@ -139,6 +142,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   onTap: () {
                     signUpUser();
                   },
+                  colorBox: Colors.grey,
+                  colorText: const Color.fromARGB(255, 173, 170, 170),
                 ),
 
                 const SizedBox(height: 20),

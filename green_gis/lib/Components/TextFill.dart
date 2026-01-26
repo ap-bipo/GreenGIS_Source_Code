@@ -4,11 +4,13 @@ class TextFill extends StatelessWidget {
   final String text;
   final TextEditingController controller;
   final bool hideText;
+  final IconData? icon;
   const TextFill({
     super.key,
     required this.text,
     required this.controller,
-    required this.hideText
+    required this.hideText,
+    this.icon,
   });
 
   @override
@@ -16,7 +18,10 @@ class TextFill extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: hideText,
+      
       decoration: InputDecoration(
+        prefixIcon: icon != null ? Icon(icon) : null,
+        prefixIconColor: Colors.grey,
         labelText: text,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

@@ -87,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                   text: 'Email',
                   controller: emailTextController,
                   hideText: false,
+                  icon: Icons.email,
                 ),
 
                 const SizedBox(height: 16),
@@ -95,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                   text: 'Password',
                   controller: passwordTextController,
                   hideText: true,
+                  icon: Icons.lock,
                 ),
 
                 const SizedBox(height: 8),
@@ -118,6 +120,8 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: () {
                     signInUser();
                   },
+                  colorBox: Colors.grey,
+                  colorText: const Color.fromARGB(255, 173, 170, 170),
                 ),
 
                 const SizedBox(height: 20),
