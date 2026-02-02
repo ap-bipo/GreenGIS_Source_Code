@@ -2,8 +2,11 @@ import 'package:green_gis/Components/Button.dart';
 import 'package:green_gis/Components/TextFill.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:green_gis/Pages/IntroductionPages/InformationPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:green_gis/Services/Auth.dart';
+import 'package:green_gis/Services/Authentication/Auth.dart';
+import 'package:green_gis/Services/Users/Users.dart';
+import './HomePage.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.onTap});
@@ -13,7 +16,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  @override
+  final Users user = Users();
   final Auth auth = Auth();
   final TextEditingController confirmPasswordTextController = TextEditingController(); 
   final TextEditingController emailTextController = TextEditingController();
@@ -45,7 +48,20 @@ class _RegisterPageState extends State<RegisterPage> {
         emailTextController.text,
         passwordTextController.text,
       );
-      if (context.mounted) Navigator.pop(context);
+      if (context.mounted) {
+        if(await user.getOnBoardingStatus()){
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => HomePage()),
+          );
+        }
+        else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => InformationPage()),
+          );
+        }
+      }
     } on AuthException catch (e) {
       if (context.mounted) Navigator.pop(context);
       displayMessages(e.message);
@@ -131,9 +147,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                
-                
-
                 const SizedBox(height: 12),
 
                 Button(
@@ -143,7 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     signUpUser();
                   },
                   colorBox: Colors.grey,
-                  colorText: const Color.fromARGB(255, 173, 170, 170),
+                  colorText: const Color.fromARGB(255, 255, 254, 254),
                 ),
 
                 const SizedBox(height: 20),

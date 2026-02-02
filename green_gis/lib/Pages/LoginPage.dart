@@ -2,8 +2,11 @@ import 'package:green_gis/Components/Button.dart';
 import 'package:green_gis/Components/TextFill.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:green_gis/Pages/IntroductionPages/InformationPage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:green_gis/Services/Auth.dart';
+import 'package:green_gis/Services/Authentication/Auth.dart';
+import 'HomePage.dart';
+import 'package:green_gis/Services/Users/Users.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, this.onTap});
@@ -13,6 +16,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final Users user = Users();
   final Auth auth = Auth();
   void displayMessages(String message) {
     showDialog(
@@ -33,7 +37,20 @@ class _LoginPageState extends State<LoginPage> {
         emailTextController.text,
         passwordTextController.text,
       );
-      if (context.mounted) Navigator.pop(context);
+      if (context.mounted) {
+        if(await user.getOnBoardingStatus()) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => HomePage()),
+          );
+        }
+        else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => InformationPage()),
+          );
+        }
+      }
     } on AuthException catch (e) {
       if (context.mounted) Navigator.pop(context);
       displayMessages(e.message);
@@ -120,8 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: () {
                     signInUser();
                   },
-                  colorBox: Colors.grey,
-                  colorText: const Color.fromARGB(255, 173, 170, 170),
+                  colorBox: const Color.fromARGB(255, 147, 144, 144),
+                  colorText: const Color.fromARGB(255, 255, 255, 255),
                 ),
 
                 const SizedBox(height: 20),
