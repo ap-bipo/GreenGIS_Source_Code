@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Row(
           children: [
-            // Widget hiển thị GP
+            // GREENPOINT DISPLAYING
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
@@ -149,19 +149,16 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(width: 8),
-            
-            // NÚT CÀI ĐẶT / HỒ SƠ
+            //SETTING BUTTON / CHANGING BIOS
             IconButton(
               onPressed: () async {
-                // Điều hướng đến trang EditProfilePage
-                // Sử dụng 'await' để nếu người dùng nhấn 'Lưu' và quay lại, ta sẽ load lại dữ liệu
                 final result = await Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const SettingPage()),
                 );
 
                 if (result == true) {
-                  _loadUserName(); // Tải lại tên và điểm nếu có thay đổi
+                  _loadUserName(); 
                 }
               },
               icon: const Icon(Icons.settings_outlined, color: Colors.grey, size: 26),
