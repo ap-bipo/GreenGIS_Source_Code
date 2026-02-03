@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:green_gis/Services/Constants/Constants.dart';
 import 'AIBuddyIntroduction.dart';
-
 
 class LeaderboardIntroduction extends StatelessWidget {
   const LeaderboardIntroduction({super.key});

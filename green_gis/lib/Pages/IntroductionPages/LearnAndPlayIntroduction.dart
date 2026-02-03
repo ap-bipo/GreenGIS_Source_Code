@@ -24,7 +24,6 @@ class LearnAndPlayIntroduction extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // TITLE
               const Text(
                 "Vừa học vừa chơi\nvới Eco-Game",
                 style: TextStyle(
@@ -45,8 +44,6 @@ class LearnAndPlayIntroduction extends StatelessWidget {
               ),
 
               const SizedBox(height: 30),
-
-              // ECOGAME
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
