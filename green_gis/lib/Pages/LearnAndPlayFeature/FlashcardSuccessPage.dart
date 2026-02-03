@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:green_gis/Pages/HomePage.dart';
 
 class FlashcardSuccessPage extends StatelessWidget {
   const FlashcardSuccessPage({super.key});
@@ -71,7 +72,10 @@ class FlashcardSuccessPage extends StatelessWidget {
               height: 56,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => HomePage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF1DB97F),

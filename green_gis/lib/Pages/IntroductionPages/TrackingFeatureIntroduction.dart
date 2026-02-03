@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:green_gis/Components/Button.dart';
 import 'package:green_gis/Pages/IntroductionPages/LearnAndPlayIntroduction.dart';
 import 'package:green_gis/Services/Constants/Constants.dart';
-import 'package:green_gis/Services/Constants/Constants.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class TrackingFeatureIntroduction extends StatelessWidget {
   const TrackingFeatureIntroduction({super.key});

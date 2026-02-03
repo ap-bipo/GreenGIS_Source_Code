@@ -3,8 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:green_gis/Components/Button.dart';
 import 'package:green_gis/Pages/IntroductionPages/TrackingFeatureIntroduction.dart';
 import 'package:green_gis/Services/Authentication/LoginUserNavigation.dart';
-import 'package:green_gis/Services/Constants/Constants.dart';
-import 'TrackingFeatureIntroduction.dart';
 import 'package:green_gis/Services/Authentication/Auth.dart';
 
 class UserConfirmationPage extends StatelessWidget {

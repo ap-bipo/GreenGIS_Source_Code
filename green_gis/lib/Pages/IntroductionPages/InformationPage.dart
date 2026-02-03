@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:green_gis/Components/TextFill.dart';
 import 'package:green_gis/Pages/IntroductionPages/UserConfirmationPage.dart';
-import 'package:green_gis/Services/Authentication/LoginUserNavigation.dart';
 import 'package:green_gis/Components/Button.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'LearnAndPlayIntroduction.dart';
 import 'package:green_gis/Components/FieldLabel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -47,6 +45,7 @@ class _InformationPageState extends State<InformationPage> {
     userSchool.dispose();
     super.dispose();
   }
+
   // UPDATE ON SUPABASE ONBOARDING STATUS
   Future<void> validation() async {
     if (!isFormValid) return;

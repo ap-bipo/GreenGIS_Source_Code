@@ -8,8 +8,7 @@ class FlashcardData {
     required this.answer,
     required this.examples,
   });
-
-  // Thêm hàm này để chuyển đổi từ dữ liệu Supabase sang Object
+  //CONVERT FROM SUPABASE
   factory FlashcardData.fromMap(Map<String, dynamic> map) {
     return FlashcardData(
       question: map['question'] ?? '',

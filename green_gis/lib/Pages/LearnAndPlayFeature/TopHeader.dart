@@ -34,8 +34,6 @@ class TopHeader extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 12),
-
-        // Title + subtitle
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

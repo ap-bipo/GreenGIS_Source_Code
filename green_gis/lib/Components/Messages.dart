@@ -6,7 +6,6 @@ class Messages extends StatelessWidget {
   String text;
   bool isUser;
   Messages({super.key, required this.text, required this.isUser});
-  
   @override
   Widget build(BuildContext context) {
     return Align(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:green_gis/Components/FlashcardData.dart';
-import 'package:green_gis/Pages/FlashcardSuccessPage.dart';
+import 'package:green_gis/Pages/LearnAndPlayFeature/FlashcardSuccessPage.dart';
 import 'package:green_gis/Components/Topic.dart';
 
 class FlashcardPage extends StatefulWidget {
