@@ -23,6 +23,11 @@ class Users {
     final profile = await getCurrentUserProfile();
     return profile?['full_name'] ?? 'None';
   }
+  // GET GREEN_POINTS
+   Future<int> getGreenPoints() async {
+    final profile = await getCurrentUserProfile();
+    return profile?['green_points'] ?? 'None';
+  }
   // GET ONBOARDING STATUS
   Future<bool> getOnBoardingStatus() async {
     final profile = await getCurrentUserProfile();

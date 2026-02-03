@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:green_gis/Pages/AIBuddyFeature.dart/AIBuddyPage.dart';
 import 'package:green_gis/Pages/IntroductionPages/TrackingFeatureIntroduction.dart';
 import 'LearnAndPlayFeature/LearningPage.dart';
+import 'package:green_gis/Services/Users/Users.dart';
+import './SettingPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,66 +14,69 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  late final List<Widget> _pages = [
-    buildHomeMainContent(),       
-    const LearningPage(),  
-    const AIBuddyPage(),  
-    const TrackingFeatureIntroduction(),
-  ];
+  final Users user = Users();
+
+  String userName = '';
+  int userGreenPoints = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+  }
+
+  Future<void> _loadUserName() async {
+    final fullName = await user.getFullName();
+    final greenPoints = await user.getGreenPoints();
+
+    if (!mounted) return;
+
+    setState(() {
+      userName = fullName;
+      userGreenPoints = greenPoints;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
       body: IndexedStack(
         index: _selectedIndex,
-        children: _pages,
+        children: [
+          buildHomeMainContent(),
+          const LearningPage(),
+          const AIBuddyPage(),
+          const TrackingFeatureIntroduction(),
+        ],
       ),
-      
-      floatingActionButton: SizedBox(
-        height: 70,
-        width: 70,
-        child: FloatingActionButton(
-          onPressed: () {
 
-          },
-          backgroundColor: Colors.white,
-          shape: const CircleBorder(),
-          elevation: 5,
-          child: Container(
-            height: 55,
-            width: 55,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Color(0xFFE8F5E9),
-            ),
-            child: const Icon(Icons.add_circle, color: Color(0xFF5DBB8E), size: 55),
-          ),
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.white,
+        child: const Icon(Icons.add_circle, color: Color(0xFF5DBB8E), size: 40),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 8,
-        color: Colors.white,
-        elevation: 10,
-        child: SizedBox(
-          height: 65,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              buildNavItem(Icons.home_filled, "Trang chủ", 0),
-              buildNavItem(Icons.videogame_asset_outlined, "Học & Chơi", 1),
-              const SizedBox(width: 40), 
-              buildNavItem(Icons.smart_toy_outlined, "AI Buddy", 2),
-              buildNavItem(Icons.bar_chart_rounded, "Thống kê", 3),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            buildNavItem(Icons.home_filled, "Trang chủ", 0),
+            buildNavItem(Icons.videogame_asset_outlined, "Học & Chơi", 1),
+            const SizedBox(width: 40),
+            buildNavItem(Icons.smart_toy_outlined, "AI Buddy", 2),
+            buildNavItem(Icons.bar_chart_rounded, "Thống kê", 3),
+          ],
         ),
       ),
     );
   }
+
+
 
   Widget buildHomeMainContent() {
     return SafeArea(
@@ -82,9 +87,9 @@ class _HomePageState extends State<HomePage> {
           children: [
             buildTopBar(),
             const SizedBox(height: 30),
-            const Text(
-              'Chào Minh Anh 👋',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Color(0xFF1B4332)),
+            Text(
+              'Chào $userName 👋',
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Color(0xFF1B4332)),
             ),
             const SizedBox(height: 8),
             Text(
@@ -121,24 +126,46 @@ class _HomePageState extends State<HomePage> {
               child: const Icon(Icons.location_on, color: Colors.white, size: 20),
             ),
             const SizedBox(width: 10),
-            const Text('GreenGIS', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            const Text('GreenGIS',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
           ],
         ),
         Row(
           children: [
+            // Widget hiển thị GP
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(color: const Color(0xFFF1FAF5), borderRadius: BorderRadius.circular(20)),
-              child: const Row(
+              decoration: BoxDecoration(
+                  color: const Color(0xFFF1FAF5),
+                  borderRadius: BorderRadius.circular(20)),
+              child: Row(
                 children: [
-                  Icon(Icons.monetization_on, color: Colors.orange, size: 18),
-                  SizedBox(width: 4),
-                  Text('1,240 GP', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1B4332))),
+                  const Icon(Icons.monetization_on, color: Colors.orange, size: 18),
+                  const SizedBox(width: 4),
+                  Text('$userGreenPoints GP',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, color: Color(0xFF1B4332))),
                 ],
               ),
             ),
-            const SizedBox(width: 12),
-            const Icon(Icons.notifications_outlined, color: Colors.grey, size: 26),
+            const SizedBox(width: 8),
+            
+            // NÚT CÀI ĐẶT / HỒ SƠ
+            IconButton(
+              onPressed: () async {
+                // Điều hướng đến trang EditProfilePage
+                // Sử dụng 'await' để nếu người dùng nhấn 'Lưu' và quay lại, ta sẽ load lại dữ liệu
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SettingPage()),
+                );
+
+                if (result == true) {
+                  _loadUserName(); // Tải lại tên và điểm nếu có thay đổi
+                }
+              },
+              icon: const Icon(Icons.settings_outlined, color: Colors.grey, size: 26),
+            ),
           ],
         )
       ],
@@ -162,7 +189,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Text('ĐIỂM XANH TÍCH LŨY', style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
-          const Text('1.250 GP', style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold, color: Colors.white)),
+          Text('$userGreenPoints GP', style: const TextStyle(fontSize: 42, fontWeight: FontWeight.bold, color: Colors.white)),
           const SizedBox(height: 15),
           buildStreakBadge(),
         ],
