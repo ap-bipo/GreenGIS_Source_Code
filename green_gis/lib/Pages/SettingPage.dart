@@ -14,7 +14,7 @@ class _SettingPageState extends State<SettingPage> {
   final _nameController = TextEditingController();
   final _bioController = TextEditingController();
   final _profileService = ProfileService();
-  
+  //VAR
   bool _isLoading = true;
   String? _avatarUrl;
   File? _imageFile;   
