@@ -14,10 +14,9 @@ class _SettingPageState extends State<SettingPage> {
   final _nameController = TextEditingController();
   final _bioController = TextEditingController();
   final _profileService = ProfileService();
-  //VAR
   bool _isLoading = true;
   String? _avatarUrl;
-  File? _imageFile;   
+  File? _imageFile;
 
   @override
   void initState() {
@@ -39,7 +38,10 @@ class _SettingPageState extends State<SettingPage> {
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
 
     if (pickedFile != null) {
       setState(() {
@@ -48,20 +50,17 @@ class _SettingPageState extends State<SettingPage> {
     }
   }
 
-  // UPLOAD IMAGE AND TEXT
   Future<void> _saveProfile() async {
     setState(() => _isLoading = true);
     try {
       String? newAvatarUrl;
-      // CHANGE IN THE SUPABASE
       if (_imageFile != null) {
         newAvatarUrl = await _profileService.uploadAvatar(_imageFile!);
       }
-      // SAVE USERS' INFOS
       await _profileService.updateProfile(
         fullName: _nameController.text.trim(),
         bio: _bioController.text.trim(),
-        avatarUrl: newAvatarUrl ?? _avatarUrl, 
+        avatarUrl: newAvatarUrl ?? _avatarUrl,
       );
 
       if (mounted) {
@@ -71,9 +70,9 @@ class _SettingPageState extends State<SettingPage> {
         Navigator.pop(context, true);
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Lỗi: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Lỗi: $e')));
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -84,7 +83,10 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Chỉnh sửa hồ sơ", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        title: const Text(
+          "Chỉnh sửa hồ sơ",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -94,8 +96,15 @@ class _SettingPageState extends State<SettingPage> {
         actions: [
           TextButton(
             onPressed: _isLoading ? null : _saveProfile,
-            child: const Text("Lưu", style: TextStyle(color: Color(0xFF00D180), fontSize: 16, fontWeight: FontWeight.bold)),
-          )
+            child: const Text(
+              "Lưu",
+              style: TextStyle(
+                color: Color(0xFF00D180),
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
       body: _isLoading && _nameController.text.isEmpty
@@ -108,17 +117,23 @@ class _SettingPageState extends State<SettingPage> {
                   Center(
                     child: Stack(
                       children: [
-  
                         CircleAvatar(
                           radius: 60,
                           backgroundColor: Colors.grey[200],
                           backgroundImage: _imageFile != null
-                              ? FileImage(_imageFile!) as ImageProvider // Ảnh vừa chọn
+                              ? FileImage(_imageFile!)
+                                    as ImageProvider // Ảnh vừa chọn
                               : (_avatarUrl != null && _avatarUrl!.isNotEmpty)
-                                  ? NetworkImage(_avatarUrl!) // Ảnh từ Supabase
-                                  : null,
-                          child: (_imageFile == null && (_avatarUrl == null || _avatarUrl!.isEmpty))
-                              ? const Icon(Icons.person, size: 60, color: Colors.grey)
+                              ? NetworkImage(_avatarUrl!) // Ảnh từ Supabase
+                              : null,
+                          child:
+                              (_imageFile == null &&
+                                  (_avatarUrl == null || _avatarUrl!.isEmpty))
+                              ? const Icon(
+                                  Icons.person,
+                                  size: 60,
+                                  color: Colors.grey,
+                                )
                               : null,
                         ),
 
@@ -133,7 +148,11 @@ class _SettingPageState extends State<SettingPage> {
                                 color: Color(0xFF00D180),
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(Icons.camera_alt, color: Colors.white, size: 20),
+                              child: const Icon(
+                                Icons.camera_alt,
+                                color: Colors.white,
+                                size: 20,
+                              ),
                             ),
                           ),
                         ),
@@ -143,7 +162,10 @@ class _SettingPageState extends State<SettingPage> {
                   const SizedBox(height: 10),
                   TextButton(
                     onPressed: _pickImage,
-                    child: const Text("Thay đổi ảnh đại diện", style: TextStyle(color: Color(0xFF00D180))),
+                    child: const Text(
+                      "Thay đổi ảnh đại diện",
+                      style: TextStyle(color: Color(0xFF00D180)),
+                    ),
                   ),
                   const SizedBox(height: 30),
                   //USERNAME
@@ -166,7 +188,6 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
-  // Widget Helper để vẽ TextField đẹp
   Widget _buildTextField({
     required String label,
     required TextEditingController controller,
@@ -176,7 +197,13 @@ class _SettingPageState extends State<SettingPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black87)),
+        Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
         const SizedBox(height: 8),
         TextField(
           controller: controller,
@@ -192,7 +219,10 @@ class _SettingPageState extends State<SettingPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: Color(0xFF00D180), width: 1.5),
+              borderSide: const BorderSide(
+                color: Color(0xFF00D180),
+                width: 1.5,
+              ),
             ),
           ),
         ),

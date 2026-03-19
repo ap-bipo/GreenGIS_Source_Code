@@ -18,21 +18,25 @@ class Users {
       return null;
     }
   }
+
   // GET FULLNAME
   Future<String> getFullName() async {
     final profile = await getCurrentUserProfile();
     return profile?['full_name'] ?? 'None';
   }
+
   // GET GREEN_POINTS
-   Future<int> getGreenPoints() async {
+  Future<int> getGreenPoints() async {
     final profile = await getCurrentUserProfile();
     return profile?['green_points'] ?? 'None';
   }
+
   // GET ONBOARDING STATUS
   Future<bool> getOnBoardingStatus() async {
     final profile = await getCurrentUserProfile();
     return profile?['has_seen_onboarding'] ?? false;
   }
+
   // GET USERS' CLASS AND SCHOOL
   Future<Map<String, String>> getUserEducation() async {
     final profile = await getCurrentUserProfile();
@@ -41,18 +45,41 @@ class Users {
       'school': profile?['school_name'] ?? 'None',
     };
   }
+
   // UPDATE ONBOARDING STATUS
   Future<void> updateOnBoardingStatus() async {
     try {
       final user = _supabase.auth.currentUser;
       if (user != null) {
-        await _supabase.from('profiles').update({
-          'has_seen_onboarding': true,
-        }).eq('id', user.id);
+        await _supabase
+            .from('profiles')
+            .update({'has_seen_onboarding': true})
+            .eq('id', user.id);
       }
     } catch (e) {
       print('can not update $e');
     }
   }
 
+  // ADD GREEN POINTS
+  Future<bool> addPoints(int pointsToAdd) async {
+    try {
+      final user = _supabase.auth.currentUser;
+      if (user == null) return false;
+
+      final profile = await getCurrentUserProfile();
+      final currentPoints = (profile?['green_points'] as num?)?.toInt() ?? 0;
+      final newPoints = currentPoints + pointsToAdd;
+
+      await _supabase
+          .from('profiles')
+          .update({'green_points': newPoints})
+          .eq('id', user.id);
+
+      return true;
+    } catch (e) {
+      print('can not add points $e');
+      return false;
+    }
+  }
 }

@@ -11,7 +11,6 @@ class LoginUserNavigation extends StatefulWidget {
 
 class _LoginUserNavigationState extends State<LoginUserNavigation> {
   bool showLoginPage = true;
-  // ignore: non_constant_identifier_names
   void TogglePages() {
     setState(() {
       showLoginPage = !showLoginPage;
@@ -19,11 +18,9 @@ class _LoginUserNavigationState extends State<LoginUserNavigation> {
   }
 
   @override
-  
-  
   @override
   Widget build(BuildContext context) {
-    if(showLoginPage) {
+    if (showLoginPage) {
       return LoginPage(onTap: TogglePages);
     } else {
       return RegisterPage(onTap: TogglePages);

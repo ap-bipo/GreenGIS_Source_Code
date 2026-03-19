@@ -4,10 +4,7 @@ class TopHeader extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const TopHeader({
-    required this.title,
-    required this.subtitle,
-  });
+  const TopHeader({super.key, required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +36,7 @@ class TopHeader extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w800,
-              ),
+              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 2),
             Text(

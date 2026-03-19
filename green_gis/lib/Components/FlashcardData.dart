@@ -8,7 +8,6 @@ class FlashcardData {
     required this.answer,
     required this.examples,
   });
-  //CONVERT FROM SUPABASE
   factory FlashcardData.fromMap(Map<String, dynamic> map) {
     return FlashcardData(
       question: map['question'] ?? '',
