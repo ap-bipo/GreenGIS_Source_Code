@@ -18,15 +18,15 @@
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-- **🔐 Secure Authentication**  
+- ** Secure Authentication**  
   Enterprise-level user management and secure login/registration workflows, powered by **Supabase**.
-- **🤖 Smart AI Buddy** _(AIBuddyFeature)_  
+- ** Smart AI Buddy** _(AIBuddyFeature)_  
   An intelligent conversational assistant leveraging **Google Generative AI (Gemini)**. It provides real-time, context-aware answers to user queries regarding sustainability and environmental science.
-- **📷 Vision-Powered Green Challenges** _(GreenChallengeFeature)_  
+- ** Vision-Powered Green Challenges** _(GreenChallengeFeature)_  
   Interactive eco-challenges (e.g., waste sorting, recycling classification) validated in real-time using on-device machine learning via **TensorFlow Lite**.
-- **🎮 Learn & Play Modules** _(LearnAndPlayFeature)_  
+- ** Learn & Play Modules** _(LearnAndPlayFeature)_  
   Interactive, gamified flashcards and robust educational resources engineered to teach sustainable habits in a vibrant and fun environment.
 
 - **⚙️ Dynamic User Personalization**  
@@ -34,7 +34,7 @@
 
 ---
 
-## 🛠 Tech Stack & Architecture
+##  Tech Stack & Architecture
 
 GreenGIS is built with modern, scalable, and high-performance technologies:
 
@@ -56,7 +56,7 @@ GreenGIS is built with modern, scalable, and high-performance technologies:
 
 ---
 
-## 📂 Project Architecture
+##  Project Architecture
 
 The codebase adheres to clean-architecture concepts, separating UI rendering from business logic:
 
@@ -79,7 +79,7 @@ lib/
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 Follow these instructions to set up the project locally for development and testing.
 
@@ -124,7 +124,7 @@ Follow these instructions to set up the project locally for development and test
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions, issues, and feature requests are always welcome! Feel free to check the issues page if you want to contribute.
 
